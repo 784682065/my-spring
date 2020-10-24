@@ -185,6 +185,9 @@ public interface BeanFactory {
 	 * @since 3.0
 	 * @see ListableBeanFactory
 	 */
+	/**
+	 * aop getbean  : DefaultListableBeanFactory 类中
+	 */
 	<T> T getBean(Class<T> requiredType) throws BeansException;
 
 	/**

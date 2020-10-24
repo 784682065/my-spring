@@ -25,4 +25,15 @@ public class IndexService {
 		return userService;
 	}
 
+	/**
+	 *  AOP -----  对index 方法做一个增强
+	 */
+	public  void index(){
+
+	}
+
+
+
+
+
 }

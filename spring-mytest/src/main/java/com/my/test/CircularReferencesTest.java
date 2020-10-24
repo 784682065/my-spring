@@ -13,7 +13,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  * @Date: Created in  17:04 2020/10/12
  * @param:
  */
-public class Test {
+public class CircularReferencesTest {
 	public static void main(String[] args) {
 		/**
 		 * 三级缓存

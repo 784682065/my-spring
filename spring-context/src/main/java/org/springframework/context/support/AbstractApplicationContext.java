@@ -1121,7 +1121,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 	@Override
 	public <T> T getBean(Class<T> requiredType) throws BeansException {
-		assertBeanFactoryActive();
+		assertBeanFactoryActive();  //判断容器是否是激活状态,没啥用
 		return getBeanFactory().getBean(requiredType);
 	}
 

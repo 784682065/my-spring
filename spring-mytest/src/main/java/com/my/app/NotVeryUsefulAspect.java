@@ -29,7 +29,10 @@ public class NotVeryUsefulAspect {
 	 * 如果一个对象被AOP 作用了,相当于改变了这个对象, 用了动态代理 proxy
 	 */
 
-	@Pointcut("execution(* com.my.services.IndexService.*(..))")
+	/**
+	 * 切点是一堆连接点的集合
+	 */
+	@Pointcut("execution(* com.my.services.*.*(..))")
 	public void pointCut() {
 	}
 
