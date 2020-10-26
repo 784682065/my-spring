@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  * @param:
  */
 @Component
-public class IndexService {
+public class IndexService{
 
 	@Autowired
 	UserService userService;
@@ -29,7 +29,7 @@ public class IndexService {
 	 *  AOP -----  对index 方法做一个增强
 	 */
 	public  void index(){
-
+		System.out.println("23333");
 	}
 
 

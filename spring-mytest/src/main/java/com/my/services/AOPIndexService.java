@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
  * @param:
  */
 @Service
-public class AOPIndexService {
+public class AOPIndexService implements Index {
 
 
 
@@ -17,4 +17,8 @@ public class AOPIndexService {
 
 	}
 
+	@Override
+	public void index() {
+		System.out.println(2333);
+	}
 }

@@ -2,6 +2,7 @@ package com.my.test;
 
 import com.my.app.AppConfig;
 import com.my.services.AOPIndexService;
+import com.my.services.Index;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
@@ -36,9 +37,9 @@ public class AopTest {
 		 *
 		 * 这个方法核心就是map.get("name")
  		 */
-		AOPIndexService bean = ac.getBean(AOPIndexService.class);
+		Index bean = ac.getBean(Index.class);
 
-		bean.aopIndex();
+		bean.index();
 
 	}
 
