@@ -53,8 +53,10 @@ import org.springframework.util.Assert;
  */
 public class AnnotationConfigApplicationContext extends GenericApplicationContext implements AnnotationConfigRegistry {
 
+	// 负责加载阶段
 	private final AnnotatedBeanDefinitionReader reader;
 
+	//负责扫描classPath下面加了注解的Bean
 	private final ClassPathBeanDefinitionScanner scanner;
 
 
@@ -87,6 +89,7 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 		this();
 		// 可以自己设置一行代码取消spring的循环依赖
 //		setAllowCircularReferences(false);
+		//定位注册 -->注册Bean的类,比如我项目中的AppConfig,容器初始化
 		register(componentClasses);
 		refresh();
 	}

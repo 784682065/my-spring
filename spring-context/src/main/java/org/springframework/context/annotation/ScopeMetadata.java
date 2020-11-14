@@ -34,8 +34,10 @@ import org.springframework.util.Assert;
  */
 public class ScopeMetadata {
 
+	// 属性默认是单例的
 	private String scopeName = BeanDefinition.SCOPE_SINGLETON;
 
+	// 默认是没有代理的
 	private ScopedProxyMode scopedProxyMode = ScopedProxyMode.NO;
 
 

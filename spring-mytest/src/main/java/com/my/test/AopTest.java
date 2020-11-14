@@ -1,7 +1,6 @@
 package com.my.test;
 
-import com.my.app.AppConfig;
-import com.my.services.AOPIndexService;
+import com.my.app.APPConfig;
 import com.my.services.Index;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -30,7 +29,7 @@ public class AopTest {
 		 *
 		 */
 		AnnotationConfigApplicationContext ac  =
-				new AnnotationConfigApplicationContext(AppConfig.class);
+				new AnnotationConfigApplicationContext(APPConfig.class);
 
 		/**
 		 * 不是在getBean中完成的代理,而是在初始化中

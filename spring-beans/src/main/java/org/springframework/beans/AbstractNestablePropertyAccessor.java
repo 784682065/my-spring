@@ -315,7 +315,7 @@ public abstract class AbstractNestablePropertyAccessor extends AbstractPropertyA
 						"Invalid array index in property path '" + tokens.canonicalName + "'", ex);
 			}
 		}
-
+//		设置list
 		else if (propValue instanceof List) {
 			Class<?> requiredType = ph.getCollectionType(tokens.keys.length);
 			List<Object> list = (List<Object>) propValue;
@@ -438,6 +438,7 @@ public abstract class AbstractNestablePropertyAccessor extends AbstractPropertyA
 				else {
 					if (isExtractOldValueForEditor() && ph.isReadable()) {
 						try {
+							// 最底层的set值的方法
 							oldValue = ph.getValue();
 						}
 						catch (Exception ex) {

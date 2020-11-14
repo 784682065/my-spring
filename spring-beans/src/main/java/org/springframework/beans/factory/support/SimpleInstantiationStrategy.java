@@ -56,21 +56,26 @@ public class SimpleInstantiationStrategy implements InstantiationStrategy {
 		return currentlyInvokedFactoryMethod.get();
 	}
 
-
+//	初始化获得BeanDefinition
 	@Override
 	public Object instantiate(RootBeanDefinition bd, @Nullable String beanName, BeanFactory owner) {
 		// Don't override the class with CGLIB if no overrides.
-		if (!bd.hasMethodOverrides()) {
+		// 如果Bean定义中没有方法覆盖, 就不需要CGLIB父类方法
+		if (!bd.hasMethodOverrides()) {   // 使用simple的
 			Constructor<?> constructorToUse;
 			synchronized (bd.constructorArgumentLock) {
+				// 获得对象的构造方法或者工厂方法
 				constructorToUse = (Constructor<?>) bd.resolvedConstructorOrFactoryMethod;
+				// 如果没有构造方法且没有工厂方法
 				if (constructorToUse == null) {
+					// 使用JDK的反射机制,判断要实例化的Bean是否是接口
 					final Class<?> clazz = bd.getBeanClass();
 					if (clazz.isInterface()) {
 						throw new BeanInstantiationException(clazz, "Specified class is an interface");
 					}
 					try {
 						if (System.getSecurityManager() != null) {
+							// 匿名内部类, 使用反射机制获取 Bean的构造方法
 							constructorToUse = AccessController.doPrivileged(
 									(PrivilegedExceptionAction<Constructor<?>>) clazz::getDeclaredConstructor);
 						}
@@ -84,9 +89,11 @@ public class SimpleInstantiationStrategy implements InstantiationStrategy {
 					}
 				}
 			}
+			// 调用初始化方法
 			return BeanUtils.instantiateClass(constructorToUse);
 		}
 		else {
+			// 使用CGLIB策略初始化
 			// Must generate CGLIB subclass.
 			return instantiateWithMethodInjection(bd, beanName, owner);
 		}

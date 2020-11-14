@@ -1,10 +1,7 @@
 package com.my.test;
 
-import com.my.app.AppConfig;
-import com.my.services.IndexService;
+import com.my.app.APPConfig;
 import com.my.services.TestService;
-import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-import org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
@@ -29,7 +26,7 @@ public class CircularReferencesTest {
 		 * 只有完整的经历一个spring的周期  java对象变成 bean
 		 */
 		AnnotationConfigApplicationContext ac  =
-				new AnnotationConfigApplicationContext(AppConfig.class);
+				new AnnotationConfigApplicationContext(APPConfig.class);
 
 		/**
 		 * 		// 手动调用spring

@@ -1,6 +1,7 @@
 package com.my.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -13,6 +14,8 @@ import javax.annotation.PostConstruct;
  */
 @Component
 public class UserService {
+	@Value(value = "CodeTiger")
+	private String name;
 
 	@Autowired
 	IndexService indexService;
@@ -24,6 +27,10 @@ public class UserService {
 
 	public IndexService getIndexService() {
 		return indexService;
+	}
+
+	public void getName(){
+		System.out.println("my name is "+name);
 	}
 
 	//生命周期 初始化回调方法

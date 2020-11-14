@@ -1,17 +1,23 @@
 package com.my.test;
 
-import com.my.app.AppConfig;
-import com.my.services.IndexService;
+import com.my.app.APPConfig;
 import com.my.services.OrderService;
-import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class IOCTest {
 
 	public static void main(String[] args) {
 
+
+		/**
+		 * 依赖注入关键的类
+		 * IOC容器: 1. BeanFactory 2.AbstractBeanFactory
+		 * 初始化获得BeanDefinition : SimpleInstantiationStrategy
+		 * 依赖注入: AbstractPropertyAccessor 完成了属性的注入
+		 * 真正实例化获得BeanWrapper
+		 */
 		AnnotationConfigApplicationContext ac  =
-				new AnnotationConfigApplicationContext(AppConfig.class);
+				new AnnotationConfigApplicationContext(APPConfig.class);
 
 		// spring scan  扫描一个类
 //		GenericBeanDefinition gd = new GenericBeanDefinition();

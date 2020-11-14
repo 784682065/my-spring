@@ -12,18 +12,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class IndexService{
 
-	@Autowired
-	UserService userService;
+//	@Autowired
+//	UserService userService;
 
 	public IndexService() {
 		System.out.println("im index");
 	}
 
-	public UserService getUserService() {
-
-		System.out.println("service method");
-		return userService;
-	}
+//	public UserService getUserService() {
+//
+//		System.out.println("service method");
+//		return userService;
+//	}
 
 	/**
 	 *  AOP -----  对index 方法做一个增强

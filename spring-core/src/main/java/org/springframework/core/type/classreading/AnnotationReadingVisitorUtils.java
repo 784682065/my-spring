@@ -157,6 +157,7 @@ abstract class AnnotationReadingVisitorUtils {
 						if (value != null) {
 							// Store the value, potentially overriding a value from an attribute
 							// of the same name found higher in the annotation hierarchy.
+							// 存放所有的名字和值
 							result.put(overridableAttributeName, value);
 						}
 					}

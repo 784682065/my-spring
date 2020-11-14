@@ -211,6 +211,7 @@ public class AnnotatedBeanDefinitionReader {
 	 * factory's {@link BeanDefinition}, e.g. setting a lazy-init or primary flag
 	 * @since 5.0
 	 */
+	// 注册Bean
 	<T> void doRegisterBean(Class<T> beanClass, @Nullable Supplier<T> instanceSupplier, @Nullable String name,
 			@Nullable Class<? extends Annotation>[] qualifiers, BeanDefinitionCustomizer... definitionCustomizers) {
 
@@ -220,16 +221,27 @@ public class AnnotatedBeanDefinitionReader {
 		}
 
 		abd.setInstanceSupplier(instanceSupplier);
+		//=====第一步=====
+		// 解析注解Bean定义的作用域.若@scope("prototype") ,则Bean为原型
+		//ScopeMetadata 只有两个属性,1. 默认单例 2. 默认不采用代理
 		ScopeMetadata scopeMetadata = this.scopeMetadataResolver.resolveScopeMetadata(abd);
+		//设置作用域
 		abd.setScope(scopeMetadata.getScopeName());
+		// 为注解Bean定义生成名称
 		String beanName = (name != null ? name : this.beanNameGenerator.generateBeanName(abd, this.registry));
 
+		//==============第二步============
+		//处理注解Bean定义中的通用注解, 也是Primary ,Lazy 等注解 放入abd 中
 		AnnotationConfigUtils.processCommonDefinitionAnnotations(abd);
+
+		// 主要是配置关于autowried 自动依赖注入装配的限定条件, 既@Qualifier注解
 		if (qualifiers != null) {
 			for (Class<? extends Annotation> qualifier : qualifiers) {
+				// 如果配置了@Primary
 				if (Primary.class == qualifier) {
 					abd.setPrimary(true);
 				}
+				// 如果配置@Lazy注解, 则注册该Bean为非延迟初始化
 				else if (Lazy.class == qualifier) {
 					abd.setLazyInit(true);
 				}
@@ -243,7 +255,11 @@ public class AnnotatedBeanDefinitionReader {
 		}
 
 		BeanDefinitionHolder definitionHolder = new BeanDefinitionHolder(abd, beanName);
+		//第三步
+		// 根据注解Bean定义类中配置的作用域,创建相应的代理对象,cglib 或者JDK动态代理
 		definitionHolder = AnnotationConfigUtils.applyScopedProxyMode(scopeMetadata, definitionHolder, this.registry);
+		//=======第四步
+		// 向IOC容器注册注解Bean类定义对象
 		BeanDefinitionReaderUtils.registerBeanDefinition(definitionHolder, this.registry);
 	}
 

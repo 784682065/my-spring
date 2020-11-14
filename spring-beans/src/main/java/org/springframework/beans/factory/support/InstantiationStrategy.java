@@ -33,7 +33,7 @@ import org.springframework.lang.Nullable;
  * @author Juergen Hoeller
  * @since 1.1
  */
-public interface InstantiationStrategy {
+public interface InstantiationStrategy {  // 两种初始化策略Simple 和Cglib
 
 	/**
 	 * Return an instance of the bean with the given name in this factory.

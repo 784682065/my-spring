@@ -16,5 +16,5 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 //@EnableAspectJAutoProxy
 @Enjoy
 //@EnableAspectJAutoProxy(proxyTargetClass = true) 会强制使用cglib代理
-public class AppConfig {
+public class APPConfig {
 }

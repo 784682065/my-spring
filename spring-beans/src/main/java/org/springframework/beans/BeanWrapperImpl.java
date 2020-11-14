@@ -289,6 +289,7 @@ public class BeanWrapperImpl extends AbstractNestablePropertyAccessor implements
 		@Override
 		@Nullable
 		public Object getValue() throws Exception {
+			// 利用反射去赋值
 			Method readMethod = this.pd.getReadMethod();
 			if (System.getSecurityManager() != null) {
 				AccessController.doPrivileged((PrivilegedAction<Object>) () -> {

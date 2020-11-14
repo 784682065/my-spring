@@ -121,6 +121,17 @@ public interface BeanFactory {
 	 * {@code myJndiObject} is a FactoryBean, getting {@code &myJndiObject}
 	 * will return the factory, not the instance returned by the factory.
 	 */
+	// 对factoryBean 的转移定义, 如果使用Bean的neame 检索FactoryBean得到的对象是工厂生成的对象
+	// 如果需要得到工厂本身, 需要转移
+	/**
+	 *  FactoryBean:
+	 * 	Spring 内部实现中规范 & 开头作为beanName,spring 中的所有容器都是 factoryBean
+	 *  因为容器本身也是由容器管理的, root来创建, 都是单例放在IOC容器中
+	 *
+	 * BeanFactory
+	 * Bean工厂的顶层规范,知识定义了getBean()方法
+	 *
+	 */
 	String FACTORY_BEAN_PREFIX = "&";
 
 
