@@ -12,6 +12,6 @@ import java.lang.annotation.RetentionPolicy;
  * @param:
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Import(EnjoyAopBeanPostProcessor.class)
+//@Import(EnjoyAopBeanPostProcessor.class)
 public @interface Enjoy {
 }

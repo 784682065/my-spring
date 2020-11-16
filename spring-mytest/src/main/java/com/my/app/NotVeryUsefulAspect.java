@@ -1,5 +1,6 @@
 package com.my.app;
 
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -32,7 +33,7 @@ public class NotVeryUsefulAspect {
 	/**
 	 * 切点是一堆连接点的集合
 	 */
-	@Pointcut("execution(* com.my.services.*.*(..))")
+	@Pointcut("execution(* com.my.services..*(..))")
 	public void pointCut() {
 	}
 
@@ -42,4 +43,8 @@ public class NotVeryUsefulAspect {
 		System.out.println("-------------before0--------------------");
 	}
 
+	@After("pointCut()")   // potinCut 要加()
+	public void after() {
+		System.out.println("-------------after0--------------------");
+	}
 }

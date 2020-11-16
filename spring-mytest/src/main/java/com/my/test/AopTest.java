@@ -1,7 +1,10 @@
 package com.my.test;
 
 import com.my.app.APPConfig;
+import com.my.services.AOPIndexService;
 import com.my.services.Index;
+import com.my.services.IndexService;
+import com.my.services.JdkIndexService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
@@ -36,8 +39,10 @@ public class AopTest {
 		 *
 		 * 这个方法核心就是map.get("name")
  		 */
-		Index bean = ac.getBean(Index.class);
+//		JdkIndexService bean = (JdkIndexService) ac.getBean("jdkIndexService");
+		IndexService bean = ac.getBean(IndexService.class);
 
+//		bean.jdkindex();
 		bean.index();
 
 	}

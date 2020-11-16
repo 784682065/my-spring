@@ -8,5 +8,5 @@ package com.my.services;
  */
 public interface Index {
 
-	public void index();
+	void index();
 }

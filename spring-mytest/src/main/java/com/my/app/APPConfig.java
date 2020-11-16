@@ -13,8 +13,8 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 @ComponentScan("com.my")
 @Configuration
-//@EnableAspectJAutoProxy
-@Enjoy
-//@EnableAspectJAutoProxy(proxyTargetClass = true) 会强制使用cglib代理
+@EnableAspectJAutoProxy
+//@Enjoy
+//@EnableAspectJAutoProxy(proxyTargetClass = true) // 会强制使用cglib代理
 public class APPConfig {
 }

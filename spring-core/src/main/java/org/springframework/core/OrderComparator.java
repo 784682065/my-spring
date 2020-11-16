@@ -77,7 +77,7 @@ public class OrderComparator implements Comparator<Object> {
 		else if (p2 && !p1) {
 			return 1;
 		}
-
+		// 比较ReflectiveMethodInvocation.proceed 中的chain的的顺序
 		int i1 = getOrder(o1, sourceProvider);
 		int i2 = getOrder(o2, sourceProvider);
 		return Integer.compare(i1, i2);

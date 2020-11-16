@@ -1,5 +1,6 @@
 package com.my.services;
 
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 /**
@@ -8,14 +9,10 @@ import org.springframework.stereotype.Service;
  * @Date: Created in  11:16 2020/10/24
  * @param:
  */
-@Service
+@Component
 public class AOPIndexService implements Index {
 
 
-
-	public void aopIndex(){
-
-	}
 
 	@Override
 	public void index() {

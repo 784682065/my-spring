@@ -410,6 +410,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 		Object result = existingBean;
 		for (BeanPostProcessor processor : getBeanPostProcessors()) {
+			// 调用Bean实例所有的后制处理中的初始化前处理方法,
+			// 为Bean实例对象在初始化前做一些自定义操作
 			Object current = processor.postProcessBeforeInitialization(result, beanName);
 			if (current == null) {
 				return result;
@@ -629,7 +631,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 				throw new BeanCreationException(
 						mbd.getResourceDescription(), beanName, "Initialization of bean failed", ex);
 			}
-		}Bean
+		}
 
 		if (earlySingletonExposure) {
 			Object earlySingletonReference = getSingleton(beanName, false);
@@ -1811,6 +1813,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		Object wrappedBean = bean;
 		if (mbd == null || !mbd.isSynthetic()) {
 			// 执行spring的内置处理器 	@PostConstruct
+			// 对BeanPostProcessor后置处理器的postProcessBeforeInitialization
+			// 回调方法的调用, 为Bean 实例初始化前做一些处理
 			wrappedBean = applyBeanPostProcessorsBeforeInitialization(wrappedBean, beanName);
 		}
 

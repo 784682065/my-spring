@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  * @param:
  */
 @Component
-public class IndexService{
+public class IndexService {
 
 //	@Autowired
 //	UserService userService;

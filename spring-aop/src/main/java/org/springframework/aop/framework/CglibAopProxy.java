@@ -678,7 +678,7 @@ class CglibAopProxy implements AopProxy, Serializable {
 				Object retVal;
 				// Check whether we only have one InvokerInterceptor: that is,
 				// no real advice, but just reflective invocation of the target.
-				if (chain.isEmpty() && Modifier.isPublic(method.getModifiers())) {
+				if (chain.isEmpty() && Modifier.isPublic(method.getModifiers())) {   // cglib的调用责任链!!!!!!!!!!!!!!!!!!!!!
 					// We can skip creating a MethodInvocation: just invoke the target directly.
 					// Note that the final invoker must be an InvokerInterceptor, so we know
 					// it does nothing but a reflective operation on the target, and no hot
@@ -733,13 +733,13 @@ class CglibAopProxy implements AopProxy, Serializable {
 				Object[] arguments, @Nullable Class<?> targetClass,
 				List<Object> interceptorsAndDynamicMethodMatchers, MethodProxy methodProxy) {
 
-			super(proxy, target, method, arguments, targetClass, interceptorsAndDynamicMethodMatchers);
+			super(proxy, target, method, arguments, targetClass, interceptorsAndDynamicMethodMatchers); //interceptorsAndDynamicMethodMatchers  就是Aop的before等方法
 
 			// Only use method proxy for public methods not derived from java.lang.Object
 			this.methodProxy = (Modifier.isPublic(method.getModifiers()) &&
 					method.getDeclaringClass() != Object.class && !AopUtils.isEqualsMethod(method) &&
 					!AopUtils.isHashCodeMethod(method) && !AopUtils.isToStringMethod(method) ?
-					methodProxy : null);
+					methodProxy : null); //三目运算 全是true 则是methodProxy否则为null
 		}
 
 		/**
