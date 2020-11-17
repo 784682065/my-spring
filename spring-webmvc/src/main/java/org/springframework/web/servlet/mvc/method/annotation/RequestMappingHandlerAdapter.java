@@ -784,6 +784,7 @@ public class RequestMappingHandlerAdapter extends AbstractHandlerMethodAdapter
 			if (session != null) {
 				Object mutex = WebUtils.getSessionMutex(session);
 				synchronized (mutex) {
+					// 返回ModelAndView
 					mav = invokeHandlerMethod(request, response, handlerMethod);
 				}
 			}
@@ -893,7 +894,7 @@ public class RequestMappingHandlerAdapter extends AbstractHandlerMethodAdapter
 			if (asyncManager.isConcurrentHandlingStarted()) {
 				return null;
 			}
-
+			// 返回最终的modleAndView
 			return getModelAndView(mavContainer, modelFactory, webRequest);
 		}
 		finally {

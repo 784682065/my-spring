@@ -160,6 +160,7 @@ public class HandlerExecutionChain {
 		if (!ObjectUtils.isEmpty(interceptors)) {
 			for (int i = interceptors.length - 1; i >= 0; i--) {
 				HandlerInterceptor interceptor = interceptors[i];
+				// 后置处理, 做结果展示拦截
 				interceptor.postHandle(request, response, this.handler, mv);
 			}
 		}

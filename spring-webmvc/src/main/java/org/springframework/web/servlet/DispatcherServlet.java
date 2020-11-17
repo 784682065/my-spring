@@ -500,6 +500,7 @@ public class DispatcherServlet extends FrameworkServlet {
 	 * <p>May be overridden in subclasses in order to initialize further strategy objects.
 	 * 初始化策略
 	 */
+	//关键方法
 	protected void initStrategies(ApplicationContext context) {
 		// 多文件上传
 		initMultipartResolver(context);
@@ -507,7 +508,7 @@ public class DispatcherServlet extends FrameworkServlet {
 		initLocaleResolver(context);
 		// 初始化模板处理器
 		initThemeResolver(context);
-		// handlerMapping
+		// handlerMapping url 与controller关联
 		initHandlerMappings(context);
 		// 初始化参数配置器
 		initHandlerAdapters(context);
@@ -600,6 +601,7 @@ public class DispatcherServlet extends FrameworkServlet {
 	 * we default to BeanNameUrlHandlerMapping.
 	 */
 	private void initHandlerMappings(ApplicationContext context) {
+		// 存放url 与handler
 		this.handlerMappings = null;
 
 		if (this.detectAllHandlerMappings) {
@@ -1006,6 +1008,7 @@ public class DispatcherServlet extends FrameworkServlet {
 	 * @param response current HTTP response
 	 * @throws Exception in case of any kind of processing failure
 	 */
+	// 中央控制器, 控制请求转发
 	protected void doDispatch(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpServletRequest processedRequest = request;
 		HandlerExecutionChain mappedHandler = null;
@@ -1022,13 +1025,19 @@ public class DispatcherServlet extends FrameworkServlet {
 				multipartRequestParsed = (processedRequest != request);
 
 				// Determine handler for the current request.
+				// 2. 获取处理当前请求的controller, 这里也称为handler处理器
+				// 第一个步骤的意义就在这里体现了, 这里并不是直接返回controller
+				// 而是返回的HandlerExecutionChain请求处理器---- 链 -----对象
+				// 该对象封装了handler 和Interceptors
 				mappedHandler = getHandler(processedRequest);
+				// 如果handler 为空, 则返回404
 				if (mappedHandler == null) {
 					noHandlerFound(processedRequest, response);
 					return;
 				}
 
 				// Determine handler adapter for the current request.
+				// 3. 获取处理request的处理器适配器 handler adapter
 				HandlerAdapter ha = getHandlerAdapter(mappedHandler.getHandler());
 
 				// Process last-modified header, if supported by the handler.
@@ -1040,12 +1049,13 @@ public class DispatcherServlet extends FrameworkServlet {
 						return;
 					}
 				}
-
+				// 应用预拦截,前置拦截, 比如权限拦截
 				if (!mappedHandler.applyPreHandle(processedRequest, response)) {
 					return;
 				}
 
 				// Actually invoke the handler.
+				// 4. 实际的处理器处理请求, 返回结果视图对象  ----AbstractHandlerMethodAdapter
 				mv = ha.handle(processedRequest, response, mappedHandler.getHandler());
 
 				if (asyncManager.isConcurrentHandlingStarted()) {
@@ -1053,6 +1063,7 @@ public class DispatcherServlet extends FrameworkServlet {
 				}
 
 				applyDefaultViewName(processedRequest, mv);
+				// 结果视图的处理, 里面做了后置拦截
 				mappedHandler.applyPostHandle(processedRequest, response, mv);
 			}
 			catch (Exception ex) {
@@ -1063,6 +1074,7 @@ public class DispatcherServlet extends FrameworkServlet {
 				// making them available for @ExceptionHandler methods and other scenarios.
 				dispatchException = new NestedServletException("Handler dispatch failed", err);
 			}
+			// 生成可以给response输出的结果
 			processDispatchResult(processedRequest, response, mappedHandler, mv, dispatchException);
 		}
 		catch (Exception ex) {
@@ -1124,6 +1136,8 @@ public class DispatcherServlet extends FrameworkServlet {
 
 		// Did the handler return a view to render?
 		if (mv != null && !mv.wasCleared()) {
+			// 最终的渲染方法 , 自己实现的 如果是jsp 就渲染成jsp freemaker就freemaker ,模板引擎起作用的地方
+			// json 也是这边
 			render(mv, request, response);
 			if (errorView) {
 				WebUtils.clearErrorRequestAttributes(request);
@@ -1239,6 +1253,7 @@ public class DispatcherServlet extends FrameworkServlet {
 	protected HandlerExecutionChain getHandler(HttpServletRequest request) throws Exception {
 		if (this.handlerMappings != null) {
 			for (HandlerMapping mapping : this.handlerMappings) {
+				// 拿到的是一个执行链
 				HandlerExecutionChain handler = mapping.getHandler(request);
 				if (handler != null) {
 					return handler;
