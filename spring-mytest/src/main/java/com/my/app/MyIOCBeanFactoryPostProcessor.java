@@ -8,6 +8,9 @@ import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.stereotype.Component;
 
 @Component
+/**
+ * 这个类会在DefaultListableBeanFactory 中#registerBeanDefinition() 被存入beanDefinitionMap 中
+ */
 public class MyIOCBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
 
 
