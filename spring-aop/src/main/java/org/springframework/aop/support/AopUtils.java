@@ -338,6 +338,7 @@ public abstract class AopUtils {
 			throws Throwable {
 
 		// Use reflection to invoke the method.
+		//调用本来的方法
 		try {
 			ReflectionUtils.makeAccessible(method);
 			return method.invoke(target, args);

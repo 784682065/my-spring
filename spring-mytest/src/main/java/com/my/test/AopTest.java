@@ -43,6 +43,7 @@ public class AopTest {
 		IndexService bean = ac.getBean(IndexService.class);
 
 //		bean.jdkindex();
+		//https://www.jb51.net/article/156620.html 详解
 		bean.index();
 
 	}
