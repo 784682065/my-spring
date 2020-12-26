@@ -557,6 +557,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		BeanWrapper instanceWrapper = null;
 		if (mbd.isSingleton()) {
 			// 如果bean 指定通过factoryMethod 来创建, 则会在这里被创建
+			//factoryBeanInstanceCache 为ioc存放bean的容器
 			instanceWrapper = this.factoryBeanInstanceCache.remove(beanName);
 		}
 		if (instanceWrapper == null) {
@@ -616,7 +617,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			// 里面会完成第五次和第六次后置处理器的调用
 			populateBean(beanName, mbd, instanceWrapper);
 			//初始化spring
-			// 里面会进行第七次和第八次的后置处理器的调用
+	 		// 里面会进行第七次和第八次的后置处理器的调用
 			// 主要执行各种生命周期回调方法 以及AOP , 在这一步完成代理
 			/**
 			 * AOP重点
@@ -1815,6 +1816,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			// 执行spring的内置处理器 	@PostConstruct
 			// 对BeanPostProcessor后置处理器的postProcessBeforeInitialization
 			// 回调方法的调用, 为Bean 实例初始化前做一些处理
+			//前置通知
 			wrappedBean = applyBeanPostProcessorsBeforeInitialization(wrappedBean, beanName);
 		}
 
@@ -1829,6 +1831,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		}
 		if (mbd == null || !mbd.isSynthetic()) {
 			//完成AOP , cglib
+			//后置通知
 			wrappedBean = applyBeanPostProcessorsAfterInitialization(wrappedBean, beanName);
 		}
 
